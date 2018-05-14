@@ -16,7 +16,7 @@ RUN useradd -m -d /qbittorrent-full qbittorrent && \
     apt-get install -y libssl-dev && \
     apt-get install -y libgeoip-dev && \
     apt-get install -y qtbase5-dev && \
-    apt-get install -y qttools5-dev-tool && \
+    apt-get install -y qttools5-dev-tools && \
     apt-get install -y libqt5svg5-dev && \
     apt-get install -y python 3 && \
     apt-get install -y libtorrent-rasterbar-dev && \

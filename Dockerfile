@@ -18,7 +18,7 @@ RUN useradd -m -d /qbittorrent-full qbittorrent && \
     apt-get install -y qtbase5-dev && \
     apt-get install -y qttools5-dev-tools && \
     apt-get install -y libqt5svg5-dev && \
-    apt-get install -y python 3 && \
+    apt-get install -y python3 && \
     apt-get install -y libtorrent-rasterbar-dev && \
     apt-get install -y unrar && \
     git clone https://github.com/arvidn/libtorrent.git && cd libtorrent && \

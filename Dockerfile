@@ -42,7 +42,7 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
-ADD qBittorrent.conf /config/qBittorrent.conf
+ADD qBittorrent.conf /qbittorrent/.config/qBittorrent/qBittorrent.conf
 
 EXPOSE 8080
 EXPOSE 6881

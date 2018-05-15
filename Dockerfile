@@ -1,8 +1,8 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN useradd -m -d /qbittorrent-full qbittorrent && \
-    chown -R qbittorrent /qbittorrent-full && \
+RUN useradd -m -d /qbittorrent qbittorrent && \
+    chown -R qbittorrent /qbittorrent && \
     apt-get update && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
@@ -29,25 +29,23 @@ RUN useradd -m -d /qbittorrent-full qbittorrent && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    mkdir -p /qbittorrent-full/.config/qBittorrent && \
-    mkdir -p /qbittorrent-full/.local/share/data/qBittorrent && \
-    ln -s /qbittorrent-full/.config/qBittorrent /config && \
-    ln -s /qbittorrent-full/.local/share/data/qBittorrent /torrents && \
+    mkdir -p /qbittorrent/.config/qBittorrent && \
+    mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
+    ln -s /qbittorrent/.config/qBittorrent /config && \
+    ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
     mkdir /Downloads && \
     mkdir /Downloads/temp && \
-    ln -s /Downloads /qbittorrent-full/Downloads && \
-    ln -s /Downloads/temp /qbittorrent-full/Downloads/temp && \
+    ln -s /Downloads /qbittorrent/Downloads && \
+    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /Downloads /Downloads/temp && \
-    chmod 2777 -R /qbittorrent-full /Downloads /Downloads/temp
+    chmod 2777 -R /qbittorrent /Downloads /Downloads/temp
 
-ADD qBittorrent.conf /qbittorrent-full/.config/qBittorrent/qBittorrent.conf
-
-VOLUME ["/config", "/torrents", "/qbittorrent-full/downloads"]
+VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
 EXPOSE 8080
 EXPOSE 6881
 
-WORKDIR /qbittorrent-full
+WORKDIR /qbittorrent
 
 USER qbittorrent
 

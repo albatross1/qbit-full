@@ -37,8 +37,8 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent /Downloads /Downloads/temp /qbittorrent/.config/qBittorrent && \
-    chmod 2777 -R /qbittorrent /Downloads /Downloads/temp /qbittorrent/.config/qBittorrent
+    chown -R qbittorrent /Downloads /Downloads/temp /qbittorrent && \
+    chmod 2777 -R /qbittorrent /Downloads /Downloads/temp /qbittorrent
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

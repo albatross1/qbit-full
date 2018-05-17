@@ -35,16 +35,7 @@ RUN apt-get update && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    chown 1000:1000 /Downloads && \
-    chown 1000:1000 /Downloads/temp && \
-    chown 1000:1000 /qbittorrent && \
-    chown 1000:1000 /qbittorrent/.config && \
-    chown 1000:1000 /qbittorrent/.config/qBittorrent && \
-    chmod 2777 -R /Downloads && \
-    chmod 2777 -R /Downloads/temp && \
-    chmod 2777 -R /qbittorrent && \
-    chmod 2777 -R /qbittorrent/.config && \
-    chmod 2777 -R /qbittorrent/.config/qBittorrent
+
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

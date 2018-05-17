@@ -1,9 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN useradd -m -d /qbittorrent qbittorrent && \
-    chown -R qbittorrent /qbittorrent && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -56,7 +54,5 @@ EXPOSE 8080
 EXPOSE 6881
 
 WORKDIR /qbittorrent
-
-USER qbittorrent
 
 CMD ["qbittorrent-nox"]

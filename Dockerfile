@@ -30,10 +30,10 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    mkdir -p /qbittorrent/.config/qBittorrent && \
-    mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
-    ln -s /qbittorrent/.config/qBittorrent /config && \
-    ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
+    mkdir -p .config/qBittorrent && \
+    mkdir -p .local/share/data/qBittorrent && \
+    ln -s .config/qBittorrent /config && \
+    ln -s .local/share/data/qBittorrent /torrents && \
     mkdir /Downloads && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
@@ -41,11 +41,11 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     chown -R 1000:1000 /qbittorrent && \
     chmod -R 4777 /qbittorrent
 
+COPY --chown=1000:1000 qBittorrent.conf .config/qBittorrent/
+
 USER qbittorrent
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
-
-ADD qBittorrent.conf /qbittorrent/.config/qBittorrent/qBittorrent.conf
 
 EXPOSE 8080
 EXPOSE 6881

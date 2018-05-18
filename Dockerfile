@@ -37,7 +37,7 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     mkdir /Downloads && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
-    ln -s /Downloads/temp /qbittorrent/Downloads/temp
+    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
     chown -R 1000:1000 /qbittorrent
 
 USER qbittorrent

@@ -34,7 +34,7 @@ RUN apt-get update && \
     mkdir /Downloads && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
-    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
+    ln -s /Downloads/temp /qbittorrent/Downloads/temp
 
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]

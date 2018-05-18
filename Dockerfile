@@ -1,7 +1,10 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update && \
+WORKDIR /qbittorrent
+
+RUN useradd -m -d /qbittorrent qbittorrent && \
+    apt-get update && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -35,7 +38,9 @@ RUN apt-get update && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp
+    chown -R 1000:1000 /qbittorrent
 
+USER qbittorrent
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
@@ -43,7 +48,5 @@ ADD qBittorrent.conf /qbittorrent/.config/qBittorrent/qBittorrent.conf
 
 EXPOSE 8080
 EXPOSE 6881
-
-WORKDIR /qbittorrent
 
 CMD ["qbittorrent-nox"]

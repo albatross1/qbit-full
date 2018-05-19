@@ -1,8 +1,6 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-WORKDIR /qbittorrent
-
 RUN useradd -m -d /qbittorrent qbittorrent && \
     apt-get update && \
     apt-get install -y build-essential && \
@@ -38,12 +36,14 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R 1000:1000 /qbittorrent && \
+    chown -R qbittorrent /qbittorrent && \
     chmod -R 4777 /qbittorrent
 
 COPY qBittorrent.conf .config/qBittorrent/
 
 USER qbittorrent
+
+WORKDIR /qbittorrent
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

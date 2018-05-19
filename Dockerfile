@@ -41,7 +41,7 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     chown -R 1000:1000 /qbittorrent && \
     chmod -R 4777 /qbittorrent
 
-COPY --chown=1000:1000 qBittorrent.conf .config/qBittorrent/
+COPY qBittorrent.conf .config/qBittorrent/
 
 USER qbittorrent
 

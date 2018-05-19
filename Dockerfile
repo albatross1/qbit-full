@@ -37,7 +37,7 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /qbittorrent && \
-    chmod -R 4777 /qbittorrent
+    chmod -R 4777 /qbittorrent && \
     chown qbittorrent /Downloads && \
     chown qbittorrent /Downloads/temp && \
     chown qbittorrent /qbittorrent && \

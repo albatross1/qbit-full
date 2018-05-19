@@ -38,6 +38,16 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /qbittorrent && \
     chmod -R 4777 /qbittorrent
+    chown qbittorrent /Downloads && \
+    chown qbittorrent /Downloads/temp && \
+    chown qbittorrent /qbittorrent && \
+    chown qbittorrent /qbittorrent/.config && \
+    chown qbittorrent /qbittorrent/.config/qBittorrent && \
+    chmod -R 4777 /Downloads && \
+    chmod -R 4777 /Downloads/temp && \
+    chmod -R 4777 /qbittorrent && \
+    chmod -R 4777 /qbittorrent/.config && \
+    chmod -R 4777 /qbittorrent/.config/qBittorrent
 
 COPY qBittorrent.conf .config/qBittorrent/
 

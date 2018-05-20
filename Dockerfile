@@ -28,26 +28,26 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    mkdir -p .config/qBittorrent && \
-    mkdir -p .local/share/data/qBittorrent && \
-    ln -s .config/qBittorrent /config && \
-    ln -s .local/share/data/qBittorrent /torrents && \
+    mkdir -p ~/.config/qBittorrent && \
+    mkdir -p ~/.local/share/data/qBittorrent && \
+    ln -s ~/.config/qBittorrent /config && \
+    ln -s ~/.local/share/data/qBittorrent /torrents && \
     mkdir /Downloads && \
     mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent /qbittorrent && \
-    chmod -R 4777 /qbittorrent && \
+    chown -R qbittorrent ~/ && \
+    chmod -R 4777 ~/ && \
     chown qbittorrent /Downloads && \
     chown qbittorrent /Downloads/temp && \
-    chown qbittorrent / && \
-    chown qbittorrent .config && \
-    chown qbittorrent .config/qBittorrent && \
+    chown qbittorrent ~/ && \
+    chown qbittorrent ~/.config && \
+    chown qbittorrent ~/.config/qBittorrent && \
     chmod -R 4777 /Downloads && \
     chmod -R 4777 /Downloads/temp && \
-    chmod -R 4777 / && \
-    chmod -R 4777 .config && \
-    chmod -R 4777 .config/qBittorrent
+    chmod -R 4777 ~/ && \
+    chmod -R 4777 ~/.config && \
+    chmod -R 4777 ~/.config/qBittorrent
 
 COPY qBittorrent.conf .config/qBittorrent/
 

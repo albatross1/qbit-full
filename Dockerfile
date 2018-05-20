@@ -20,7 +20,7 @@ RUN apt-get update -y && \
     apt-get install -y libtorrent-rasterbar-dev && \
     apt-get install -y unrar && \
     git clone https://github.com/arvidn/libtorrent.git && cd libtorrent && \
-    git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1) && \
+    git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1) && \
     ./autotool.sh && \
     ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 && \
     make clean && make -j$(nproc) && make install && \

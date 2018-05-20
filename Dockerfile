@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -27,7 +27,7 @@ RUN apt-get update && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    adduser --system --home $HOME --shell --uid 1000 --gid 1000 qbittorrent && \
+    adduser --home $HOME --shell --uid 1000 --gid 1000 qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /Downloads/temp && \

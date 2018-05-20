@@ -1,7 +1,8 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update && \
+RUN useradd -m -d /qbittorrent qbittorrent && \
+    apt-get update && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -27,28 +28,36 @@ RUN apt-get update && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    adduser -S -D -u 1000 -g 1000 qbittorrent && \
-    mkdir -p /home/qbittorrent/.config/qBittorrent && \
-    mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /Downloads/temp && \
-    chmod go+rwx -R /home/qbittorrent /Downloads && \
-    ln -s /home/qbittorrent/.config/qBittorrent /config && \
-    ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
+    mkdir -p ~/.config/qBittorrent && \
+    mkdir -p ~/.local/share/data/qBittorrent && \
+    ln -s ~/.config/qBittorrent /config && \
+    ln -s ~/.local/share/data/qBittorrent /torrents && \
+    mkdir /Downloads && \
+    mkdir /Downloads/temp && \
     ln -s /Downloads /qbittorrent/Downloads && \
     ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
+    chown -R qbittorrent ~/ && \
+    chmod -R 4777 ~/ && \
+    chown qbittorrent /Downloads && \
+    chown qbittorrent /Downloads/temp && \
+    chown qbittorrent ~/ && \
+    chown qbittorrent ~/.config && \
+    chown qbittorrent ~/.config/qBittorrent && \
+    chmod -R 4777 /Downloads && \
+    chmod -R 4777 /Downloads/temp && \
+    chmod -R 4777 ~/ && \
+    chmod -R 4777 ~/.config && \
+    chmod -R 4777 ~/.config/qBittorrent
 
-COPY qBittorrent.conf /default/qBittorrent.conf
-COPY entrypoint.sh /
-
-VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
-
-ENV HOME=/home/qbittorrent
+COPY qBittorrent.conf .config/qBittorrent/
 
 USER qbittorrent
 
-EXPOSE 8080 6881
+WORKDIR /qbittorrent
 
-ENTRYPOINT ["/entrypoint.sh"]
+VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
+
+EXPOSE 8080
+EXPOSE 6881
 
 CMD ["qbittorrent-nox"]

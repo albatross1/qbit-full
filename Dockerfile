@@ -27,7 +27,7 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    adduser --system --home $HOME --uid 1000 --group qbittorrent && \
+    adduser --system --uid 1000 --group qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /Downloads/temp && \

@@ -31,6 +31,7 @@ RUN apt-get update -y && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads/temp && \
+    mkdir -p /qbittorrent/Downloads/temp && \
     chmod go+rwx -R /home/qbittorrent /home/qbittorrent/Downloads && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \

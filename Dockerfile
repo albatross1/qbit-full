@@ -30,12 +30,12 @@ RUN apt-get update -y && \
     adduser --system --uid 1000 --group qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /Downloads/temp && \
+    mkdir -p /home/qbittorrent/Downloads/temp && \
     chmod go+rwx -R /home/qbittorrent /Downloads && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /Downloads /qbittorrent/Downloads && \
-    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
+    ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
+    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 COPY qBittorrent.conf /default/qBittorrent.conf

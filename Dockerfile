@@ -40,7 +40,7 @@ RUN apt-get update -y && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 COPY qBittorrent.conf /default/qBittorrent.conf
-COPY entrypoint.sh /home/qbittorrent
+COPY entrypoint.sh /home/qbittorrent/.config/qBittorrent
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
@@ -50,6 +50,6 @@ USER qbittorrent
 
 EXPOSE 8080 6881
 
-ENTRYPOINT ["/home/qbittorrent/entrypoint.sh"]
+ENTRYPOINT ["/home/qbittorrent/.config/qBittorrent/entrypoint.sh"]
 
 CMD ["qbittorrent-nox"]

@@ -27,7 +27,8 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    adduser --system --uid 1000 --group qbittorrent && \
+    addgroup --gid 1000 qbittorrent && \
+    adduser --uid 1000 --gid 1000 qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads/temp && \
@@ -40,7 +41,7 @@ RUN apt-get update -y && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 COPY qBittorrent.conf /default/qBittorrent.conf
-ADD entrypoint.sh /home/qbittorrent/.config/qBittorrent/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
@@ -50,6 +51,6 @@ USER qbittorrent
 
 EXPOSE 8080 6881
 
-ENTRYPOINT ["/config/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["qbittorrent-nox"]

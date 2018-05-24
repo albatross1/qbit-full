@@ -16,7 +16,7 @@ RUN apt-get update -y && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
-    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
+    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

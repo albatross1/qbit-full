@@ -36,8 +36,8 @@ RUN apt-get update -y && \
     chmod 4777 -R /home/qbittorrent /home/qbittorrent/Downloads && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
-    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
+    ln -r /home/qbittorrent/Downloads /qbittorrent/Downloads && \
+    ln -r /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

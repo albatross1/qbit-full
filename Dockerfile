@@ -33,8 +33,8 @@ RUN apt-get update -y && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads/temp && \
     mkdir -p /qbittorrent/Downloads/temp && \
-    chown 1000:1000 -R /home/qbittorrent /home/qbittorrent/Downloads && \
-    chmod a+rwx -R /home/qbittorrent /home/qbittorrent/Downloads && \
+    chown -R qbittorrent /home/qbittorrent /home/qbittorrent/Downloads && \
+    chmod 4777 -R /home/qbittorrent /home/qbittorrent/Downloads && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
@@ -44,8 +44,8 @@ RUN apt-get update -y && \
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown 1000:1000 -R /entrypoint.sh && \
-    chmod a+rwx -R /entrypoint.sh
+RUN chown -R qbittorrent /entrypoint.sh && \
+    chmod 4777 -R /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

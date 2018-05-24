@@ -2,6 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
 RUN apt-get update -y && \
+    apt-get install software-properties-common && \
     add-apt-repository ppa:qbittorrent-team/qbittorrent-unstable && \
     apt-get update -y && \
     apt-get install -y unrar && \

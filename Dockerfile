@@ -27,22 +27,18 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    addgroup --home /qbittorrent --gid 1000 qbittorrent && \
-    adduser --home /qbittorrent --uid 1000 --gid 1000 qbittorrent && \
+    useradd -m -d /qbittorrent qbittorrent && \
+    chown -R qbittorrent /qbittorrent && \
     mkdir -p /qbittorrent/.config/qBittorrent && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /qbittorrent/Downloads/temp && \
-    mkdir -p /Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /qbittorrent /Downloads && \
-    chmod 4777 -R /qbittorrent /Downloads && \
-    chmod o+t -R /qbittorrent /Downloads && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /Downloads /qbittorrent/Downloads && \
-    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /Downloads/temp && \
-    chmod 4777 -R /Downloads/temp && \
-    chmod o+t -R /Downloads/temp && \
+    mkdir /downloads && \
+    mkdir /downloads/temp && \
+    ln -s /downloads /qbittorrent/Downloads && \
+    ln -s /downloads/temp /qbittorrent/Downloads/temp && \
+    chown -R qbittorrent /downloads /downloads/temp && \
+    chmod 2777 -R /qbittorrent /downloads /downloads/temp
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

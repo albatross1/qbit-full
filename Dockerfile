@@ -20,7 +20,7 @@ RUN apt-get update -y && \
     apt-get install -y libtorrent-rasterbar-dev && \
     apt-get install -y unrar && \
     git clone https://github.com/arvidn/libtorrent.git && cd libtorrent && \
-    git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1) && \
+    git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1) && \
     ./autotool.sh && \
     ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 && \
     make clean && make -j$(nproc) && make install && \
@@ -38,7 +38,7 @@ RUN apt-get update -y && \
     ln -s /downloads /qbittorrent/Downloads && \
     ln -s /downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /downloads /downloads/temp && \
-    chmod 2777 -R /qbittorrent /downloads /downloads/temp
+    chmod 2777 -R /qbittorrent /downloads /downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

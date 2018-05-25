@@ -27,22 +27,22 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    addgroup --gid 1000 qbittorrent && \
-    adduser --uid 1000 --gid 1000 qbittorrent && \
-    mkdir -p /home/qbittorrent/.config/qBittorrent && \
-    mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /home/qbittorrent/Downloads/temp && \
+    addgroup --home /qbittorrent --gid 1000 qbittorrent && \
+    adduser --home /qbittorrent --uid 1000 --gid 1000 qbittorrent && \
+    mkdir -p /qbittorrent/.config/qBittorrent && \
+    mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /home/qbittorrent /home/qbittorrent/Downloads && \
-    chmod 4777 -R /home/qbittorrent /home/qbittorrent/Downloads && \
-    chmod o+t -R /home/qbittorrent /home/qbittorrent/Downloads && \
-    ln -s /home/qbittorrent/.config/qBittorrent /config && \
-    ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
-    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /qbittorrent/Downloads/temp && \
-    chmod 4777 -R /qbittorrent/Downloads/temp && \
-    chmod o+t -R /qbittorrent/Downloads/temp && \
+    mkdir -p /Downloads/temp && \
+    chown -R qbittorrent:qbittorrent /qbittorrent /Downloads && \
+    chmod 4777 -R /qbittorrent /Downloads && \
+    chmod o+t -R /qbittorrent /Downloads && \
+    ln -s /qbittorrent/.config/qBittorrent /config && \
+    ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
+    ln -s /Downloads /qbittorrent/Downloads && \
+    ln -s /Downloads/temp /qbittorrent/Downloads/temp && \
+    chown -R qbittorrent:qbittorrent /Downloads/temp && \
+    chmod 4777 -R /Downloads/temp && \
+    chmod o+t -R /Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
@@ -53,7 +53,7 @@ RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 
-ENV HOME=/home/qbittorrent
+WORKDIR /qbittorrent
 
 USER qbittorrent
 

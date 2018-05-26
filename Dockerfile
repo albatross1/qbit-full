@@ -38,15 +38,23 @@ RUN apt-get update -y && \
     ln -s /downloads /qbittorrent/Downloads && \
     ln -s /downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /downloads /downloads/temp && \
+<<<<<<< HEAD
     chmod --verbose -R 0775 /qbittorrent && \
     chmod --verbose -R 0775 /downloads /downloads/temp && \
+=======
+    chmod 2777 -R /qbittorrent /downloads /downloads/temp && \
+>>>>>>> parent of a566a94... push
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
+<<<<<<< HEAD
     chmod -R 0775 /entrypoint.sh
+=======
+    chmod 4777 -R /entrypoint.sh
+>>>>>>> parent of a566a94... push
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

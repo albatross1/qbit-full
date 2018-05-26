@@ -39,8 +39,12 @@ RUN apt-get update -y && \
     ln -s /downloads/temp /qbittorrent/Downloads/temp && \
     chown -R qbittorrent /downloads /downloads/temp && \
 <<<<<<< HEAD
+<<<<<<< HEAD
     chmod --verbose -R 0775 /qbittorrent && \
     chmod --verbose -R 0775 /downloads /downloads/temp && \
+=======
+    chmod 2777 -R /qbittorrent /downloads /downloads/temp && \
+>>>>>>> parent of a566a94... push
 =======
     chmod 2777 -R /qbittorrent /downloads /downloads/temp && \
 >>>>>>> parent of a566a94... push
@@ -51,7 +55,11 @@ ADD entrypoint.sh /entrypoint.sh
 
 RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
 <<<<<<< HEAD
+<<<<<<< HEAD
     chmod -R 0775 /entrypoint.sh
+=======
+    chmod 4777 -R /entrypoint.sh
+>>>>>>> parent of a566a94... push
 =======
     chmod 4777 -R /entrypoint.sh
 >>>>>>> parent of a566a94... push

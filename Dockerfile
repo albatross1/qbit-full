@@ -42,8 +42,8 @@ RUN apt-get update -y && \
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
-    chmod 0777 -R /entrypoint.sh
+RUN chown -R qbittorrent /entrypoint.sh && \
+    chmod 7777 -R /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Default configuration file
 if [ ! -f /config/qBittorrent.conf ]

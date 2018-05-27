@@ -33,13 +33,10 @@ RUN apt-get update -y && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    mkdir /downloads && \
-    mkdir /downloads/temp && \
-    ln -s /downloads /qbittorrent/Downloads && \
-    ln -s /downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /downloads /downloads/temp && \
-    chown -h qbittorrent:qbittorrent /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
-    chmod 0777 -R /qbittorrent /downloads /downloads/temp /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
+    mkdir /qbittorrent/Downloads && \
+    mkdir /qbittorrent/Downloads/temp && \
+    chown -R qbittorrent:qbittorrent /qbittorrent && \
+    chmod 0777 -R /qbittorrent /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

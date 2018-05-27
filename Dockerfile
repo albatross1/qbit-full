@@ -37,7 +37,8 @@ RUN apt-get update -y && \
     mkdir /downloads/temp && \
     ln -s /downloads /qbittorrent/Downloads && \
     ln -s /downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /downloads /downloads/temp /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
+    chown -R qbittorrent:qbittorrent /downloads /downloads/temp && \
+    chown -h qbittorrent:qbittorrent /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
     chmod 0777 -R /qbittorrent /downloads /downloads/temp /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 

@@ -35,14 +35,15 @@ RUN apt-get update -y && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
     chown -R qbittorrent:qbittorrent /qbittorrent && \
-    chmod 0775 -R /qbittorrent && \
+    chmod -R 0775 /qbittorrent && \
+    chmod ug+s /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
-    chmod 0775 -R /entrypoint.sh
+    chmod -R 0775 /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
 

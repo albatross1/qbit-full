@@ -1,8 +1,8 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN groupadd -g 1000 qbittorrent && \
-    useradd -g 1000 -u 1000 -d /home/qbittorrent && \
+RUN groupadd --gid 1000 qbittorrent && \
+    useradd --gid 1000 --uid 1000 -d /home/qbittorrent && \
     su qbittorrent && \
     apt-get update -y && \
     apt-get install -y build-essential && \

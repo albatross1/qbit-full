@@ -32,10 +32,10 @@ RUN groupadd -g 1000 qbittorrent && \
     make && make install && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /home/qbittorrent/qbit/Downloads/temp && \
+    mkdir -p /home/qbittorrent/Downloads/temp && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /home/qbittorrent/qbit/Downloads /qbittorrent/Downloads && \
+    ln -s /home/qbittorrent/Downloads /qbit-downloads && \
     cd /home/qbittorrent && \
     chown -R qbittorrent:qbittorrent . && \
     chmod -R 0775 . && \
@@ -47,7 +47,7 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
     chmod -R 0775 /entrypoint.sh
 
-VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
+VOLUME ["/config", "/torrents", "/qbit-downloads"]
 
 USER qbittorrent
 

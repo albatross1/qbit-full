@@ -32,24 +32,26 @@ RUN groupadd -g 1000 qbittorrent && \
     make && make install && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /home/qbittorrent/Downloads/temp && \
+    mkdir -p /home/qbittorrent/Downloads && \
+    mkdir -p /home/qbittorrent/Downloads-temp && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /home/qbittorrent/Downloads /qbit-downloads && \
-    cd /home/qbittorrent && \
-    chown -R qbittorrent:qbittorrent . && \
-    chmod -R 0775 . && \
+    ln -s /home/qbittorrent/Downloads /qbittorrent-downloads && \
+    ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
+    chown -R 1000:1000 /home/qbittorrent/ && \
+    chmod -R 0775 /home/qbittorrent/.config/ /home/qbittorrent/.local/ && \
+    chmod -R 4775 /home/qbittorrent/Downloads/ /home/qbittorrent/Downloads-temp/ && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
+RUN chown -R 1000:1000 /entrypoint.sh && \
     chmod -R 0775 /entrypoint.sh
 
-VOLUME ["/config", "/torrents", "/qbit-downloads"]
+VOLUME ["/config", "/torrents", "/qbit-downloads", "qbit-downloads-temp"]
 
-USER qbittorrent
+USER 1000:1000
 
 EXPOSE 8080 6881
 

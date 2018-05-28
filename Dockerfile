@@ -28,7 +28,8 @@ RUN apt-get update -y && \
     ./configure --disable-gui && \
     make && make install && \
     useradd -m -d /qbittorrent qbittorrent && \
-    chown -R qbittorrent /qbittorrent && \
+    umask 000 && \
+    chown -R qbittorrent:qbittorrent /qbittorrent && \
     mkdir -p /qbittorrent/.config/qBittorrent && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /qbittorrent/Downloads/temp && \

@@ -1,7 +1,10 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update -y && \
+RUN groupadd -g 1000 qbittorrent && \
+    useradd -g 1000 -u 1000 -d /home/qbittorrent && \
+    su qbittorrent && \
+    apt-get update -y && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -27,17 +30,15 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    useradd -m -d /qbittorrent qbittorrent && \
-    umask 000 && \
-    chown -R qbittorrent:qbittorrent /qbittorrent && \
-    mkdir -p /qbittorrent/.config/qBittorrent && \
-    mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /qbittorrent/Downloads/temp && \
-    ln -s /qbittorrent/.config/qBittorrent /config && \
-    ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    chown -R qbittorrent:qbittorrent /qbittorrent && \
-    chmod -R 0775 /qbittorrent && \
-    chmod -R 2775 /qbittorrent/Downloads /qbittorrent/Downloads/temp && \
+    mkdir -p /home/qbittorrent/.config/qBittorrent && \
+    mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
+    mkdir -p /home/qbittorrent/qbit/Downloads/temp && \
+    ln -s /home/qbittorrent/.config/qBittorrent /config && \
+    ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
+    ln -s /home/qbittorrent/qbit/Downloads /qbittorrent/Downloads && \
+    cd /home/qbittorrent && \
+    chown -R qbittorrent:qbittorrent . && \
+    chmod -R 0775 . && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
@@ -47,8 +48,6 @@ RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
     chmod -R 0775 /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
-
-WORKDIR /qbittorrent
 
 USER qbittorrent
 

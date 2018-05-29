@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
 RUN groupadd -g 1000 qbittorrent && \
-    useradd -g 1000 -u 1000 -d /home/qbittorrent qbittorrent && \
+    useradd -g 1000 -u 1000 -m -d /home/qbittorrent qbittorrent && \
     su qbittorrent && \
     chown -R qbittorrent /home/qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \

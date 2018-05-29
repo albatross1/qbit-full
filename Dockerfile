@@ -4,11 +4,11 @@ MAINTAINER TheCreatorzOne
 RUN groupadd -g 1000 qbittorrent && \
     useradd -g 1000 -u 1000 -m -d /home/qbittorrent qbittorrent && \
     su qbittorrent && \
-    chown -R qbittorrent /home/qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads && \
     mkdir -p /home/qbittorrent/Downloads-temp && \
+    chown -R qbittorrent /home/qbittorrent && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \

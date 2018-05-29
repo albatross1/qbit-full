@@ -1,7 +1,10 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update -y && \
+RUN groupadd -g 1000 qbittorrent && \
+    useradd -g 1000 -u 1000 -d /home/qbittorrent qbittorrent && \
+    su qbittorrent && \
+    apt-get update -y && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
     apt-get install -y automake && \
@@ -27,35 +30,29 @@ RUN apt-get update -y && \
     git clone https://github.com/qbittorrent/qBittorrent && cd qBittorrent && \
     ./configure --disable-gui && \
     make && make install && \
-    addgroup --gid 1000 qbittorrent && \
-    adduser --uid 1000 --gid 1000 qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
-    mkdir -p /home/qbittorrent/Downloads/temp && \
-    mkdir -p /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /home/qbittorrent /home/qbittorrent/Downloads && \
-    chmod 4777 -R /home/qbittorrent /home/qbittorrent/Downloads && \
-    chmod o+t -R /home/qbittorrent /home/qbittorrent/Downloads && \
+    mkdir -p /home/qbittorrent/Downloads && \
+    mkdir -p /home/qbittorrent/Downloads-temp && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
-    ln -s /home/qbittorrent/Downloads /qbittorrent/Downloads && \
-    ln -s /home/qbittorrent/Downloads/temp /qbittorrent/Downloads/temp && \
-    chown -R qbittorrent:qbittorrent /qbittorrent/Downloads/temp && \
-    chmod 4777 -R /qbittorrent/Downloads/temp && \
-    chmod o+t -R /qbittorrent/Downloads/temp && \
+    ln -s /home/qbittorrent/Downloads /qbit-downloads && \
+    ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
+    chown -R 1000:1000 /home/qbittorrent/ && \
+    chmod -R 6775 /home/qbittorrent/ && \
+    chmod -R 0775 /home/qbittorrent/.config/ /home/qbittorrent/.local/ /home/qbittorrent/Downloads/ /home/qbittorrent/Downloads-temp/ && \
+    chmod -R g+s /home/qbittorrent/.config/ /home/qbittorrent/.local/ /home/qbittorrent/Downloads/ /home/qbittorrent/Downloads-temp/ && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
-    chmod 4777 -R /entrypoint.sh
+RUN chown -R 1000:1000 /entrypoint.sh && \
+    chmod -R 0775 /entrypoint.sh
 
-VOLUME ["/config", "/torrents", "/qbittorrent/Downloads"]
+VOLUME ["/config", "/torrents", "/qbit-downloads", "qbit-downloads-temp"]
 
-ENV HOME=/home/qbittorrent
-
-USER qbittorrent
+USER 1000:1000
 
 EXPOSE 8080 6881
 

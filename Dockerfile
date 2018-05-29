@@ -39,8 +39,9 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \
     ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
     chown -R 1000:1000 /home/qbittorrent/ && \
+    chmod -R 6775 /home/qbittorrent/ && \
     chmod -R 0775 /home/qbittorrent/.config/ /home/qbittorrent/.local/ && \
-    chmod -R 4775 /home/qbittorrent/Downloads/ /home/qbittorrent/Downloads-temp/ && \
+    chmod -R 6775 /home/qbittorrent/Downloads/ /home/qbittorrent/Downloads-temp/ && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

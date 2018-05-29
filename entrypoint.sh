@@ -7,6 +7,6 @@ then
 fi
 
 # Allow groups to change files.
-umask 000
+umask 002
 
 exec "$@"

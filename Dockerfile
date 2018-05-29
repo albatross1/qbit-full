@@ -15,7 +15,7 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \
-    ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
+    ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

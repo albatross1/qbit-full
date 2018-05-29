@@ -16,7 +16,6 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \
     ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
-    su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

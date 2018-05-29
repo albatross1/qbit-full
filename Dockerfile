@@ -4,6 +4,7 @@ MAINTAINER TheCreatorzOne
 RUN groupadd -g 1000 qbittorrent && \
     useradd -g 1000 -u 1000 -d /home/qbittorrent qbittorrent && \
     su qbittorrent && \
+    chown -R qbittorrent /home/qbittorrent && \
     mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads && \
@@ -13,7 +14,8 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \
     ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
     chown -R qbittorrent /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
-    chmod 2777 -R /home/qbittorrent /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
+    chmod 0777 -R /home/qbittorrent /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
+    chmod g+s /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
     apt-get update -y && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \

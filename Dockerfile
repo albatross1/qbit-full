@@ -14,12 +14,11 @@ RUN groupadd -g 1000 qbittorrent && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    mkdir -p /Downloads && \
-    mkdir -p /Downloads-temp && \
+    mkdir -p /Downloads/temp && \
     ln -s /Downloads /qbit-downloads && \
-    ln -s /Downloads-temp /qbit-temp && \
-    chown -R qbittorrent:qbittorrent /Downloads /Downloads-temp && \
-    chmod -R 0775 /qbittorrent /Downloads /Downloads-temp
+    ln -s /Downloads/temp /qbit-downloads/temp && \
+    chown -R qbittorrent:qbittorrent /Downloads /Downloads/temp && \
+    chmod -R 4775 /qbittorrent /Downloads /Downloads/temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
@@ -27,7 +26,7 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
     chmod -R 0775 /entrypoint.sh
 
-VOLUME ["/config", "/torrents", "/qbit-downloads" "/qbit-temp"]
+VOLUME ["/config", "/torrents", "/qbit-downloads" "/qbit-downloads/temp"]
 
 EXPOSE 8080 6881
 

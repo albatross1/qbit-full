@@ -1,29 +1,28 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN groupadd -g 1000 qbittorrent && \
-    useradd -g 1000 -u 1000 -m -d /qbittorrent qbittorrent && \
+RUN useradd -m -d /qbittorrent qbittorrent && \
     apt-get update -y && \
     apt-get -y install software-properties-common && \
     add-apt-repository ppa:qbittorrent-team/qbittorrent-unstable && \
     apt-get update -y && \
     apt-get install -y qbittorrent-nox && \
     apt-get install -y unrar && \
-    chown -R qbittorrent:qbittorrent /qbittorrent && \
+    chown -R qbittorrent /qbittorrent && \
     mkdir -p /qbittorrent/.config/qBittorrent && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
     mkdir -p /Downloads/temp && \
     ln -s /Downloads /qbit-downloads && \
-    chown -R qbittorrent:qbittorrent /Downloads /Downloads/temp && \
+    chown -R qbittorrent /Downloads /Downloads/temp && \
     chmod -R 2777 /qbittorrent /Downloads /Downloads/temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown -R qbittorrent:qbittorrent /entrypoint.sh && \
-    chmod -R 0775 /entrypoint.sh
+RUN chown -R qbittorrent /entrypoint.sh && \
+    chmod -R 0777 /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbit-downloads"]
 

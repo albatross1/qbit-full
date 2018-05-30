@@ -14,11 +14,12 @@ RUN groupadd -g 1000 qbittorrent && \
     mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    mkdir -p /Downloads/temp && \
+    mkdir -p /Downloads && \
+    mkdir -o /Downloads-temp && \
     ln -s /Downloads /qbit-downloads && \
-    ln -s /Downloads/temp /qbit-downloads && \
-    chown -R qbittorrent:qbittorrent /Downloads /Downloads/temp && \
-    chmod -R 0775 /qbittorrent /Downloads /Downloads/temp
+    ln -s /Downloads-temp /qbit-downloads/temp && \
+    chown -R qbittorrent:qbittorrent /Downloads /Downloads-temp && \
+    chmod -R 0775 /qbittorrent /Downloads /Downloads-temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
 RUN groupadd -g 1000 qbittorrent && \
-    useradd -g 1000 -u 1000 -d /qbittorrent qbittorrent && \
+    useradd -g 1000 -u 1000 -m -d /qbittorrent qbittorrent && \
     apt-get update -y && \
     apt-get -y install software-properties-common && \
     add-apt-repository ppa:qbittorrent-team/qbittorrent-unstable && \

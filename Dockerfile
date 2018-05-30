@@ -17,7 +17,7 @@ RUN groupadd -g 1000 qbittorrent && \
     mkdir -p /Downloads/temp && \
     ln -s /Downloads /qbit-downloads && \
     chown -R qbittorrent:qbittorrent /Downloads /Downloads/temp && \
-    chmod -R 4775 /qbittorrent /Downloads /Downloads/temp
+    chmod -R 2775 /qbittorrent /Downloads /Downloads/temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

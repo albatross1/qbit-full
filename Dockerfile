@@ -15,14 +15,14 @@ RUN useradd -m -d /qbittorrent qbittorrent && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
     mkdir -p /Downloads/temp && \
     ln -s /Downloads /qbit-downloads && \
-    chown -R qbittorrent /Downloads && \
-    chmod -R 2775 /qbittorrent /Downloads
+    chown -R qbittorrent /Downloads /Downloads/temp && \
+    chmod -R 2777 /qbittorrent /Downloads /Downloads/temp
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chown -R qbittorrent /entrypoint.sh && \
-    chmod -R 0775 /entrypoint.sh
+    chmod -R 0777 /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbit-downloads"]
 

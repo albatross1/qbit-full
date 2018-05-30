@@ -15,8 +15,12 @@ RUN mkdir -p /home/qbittorrent && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /Downloads /qbit-downloads && \
-    chown -R 1000:1000 /Downloads /home/qbittorrent/.* && \
-    chmod -R 2775 /Downloads /home/qBittorrent/.* && \
+    cd /Downloads && \
+    chown -R 1000:1000 \.* && \
+    chmod -R 2775 \.* && \
+    cd /home/qbittorrent && \
+    chown -R 1000:1000 \.* && \
+    chmod -R 2775 \.* && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

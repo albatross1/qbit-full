@@ -15,7 +15,7 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /qbittorrent/.config/qBittorrent /config && \
     ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
     mkdir -p /Downloads && \
-    mkdir -o /Downloads-temp && \
+    mkdir -p /Downloads-temp && \
     ln -s /Downloads /qbit-downloads && \
     ln -s /Downloads-temp /qbit-downloads/temp && \
     chown -R qbittorrent:qbittorrent /Downloads /Downloads-temp && \

@@ -1,8 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN mkdir -p /home/qbittorrent && \
-    groupadd -g 1000 qbittorrent && \
+RUN groupadd -g 1000 qbittorrent && \
     useradd -g 1000 -u 1000 -d /home/qbittorrent qbittorrent && \
     su qbittorrent && \
     apt-get update -y && \
@@ -15,12 +14,8 @@ RUN mkdir -p /home/qbittorrent && \
     ln -s /home/qbittorrent/.config/qBittorrent /config && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /Downloads /qbit-downloads && \
-    cd /Downloads && \
-    chown -R 1000:1000 \ && \
-    chmod -R 2775 \ && \
-    cd /home/qbittorrent && \
-    chown -R 1000:1000 \ && \
-    chmod -R 2775 \ && \
+    chown -R 1000:1000 /Downloads /home/qbittorrent/ && \
+    chmod -R 2775 /Downloads /home/qBittorrent/ && \
     su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 ADD qBittorrent.conf /default/qBittorrent.conf

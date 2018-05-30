@@ -1,7 +1,8 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN apt-get update -y && \
+RUN useradd -m -d /qbittorrent qbittorrent && \
+    apt-get update -y && \
     apt-get -y install software-properties-common && \
     add-apt-repository ppa:qbittorrent-team/qbittorrent-unstable && \
     apt-get update -y && \
@@ -15,7 +16,7 @@ RUN apt-get update -y && \
     mkdir -p /Downloads/temp && \
     ln -s /Downloads /qbit-downloads && \
     chown -R qbittorrent /Downloads && \
-    chmod -R 2775 /qbittorrent /Downloads && \
+    chmod -R 2775 /qbittorrent /Downloads
 
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh

@@ -1,7 +1,8 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN groupadd -g 1000 qbittorrent && \
+RUN mkdir -p /home/qbittorrent && \
+    groupadd -g 1000 qbittorrent && \
     useradd -g 1000 -u 1000 -d /home/qbittorrent qbittorrent && \
     su qbittorrent && \
     apt-get update -y && \

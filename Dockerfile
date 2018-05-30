@@ -1,10 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER TheCreatorzOne
 
-RUN groupadd -g 1000 qbittorrent && \
-    useradd -g 1000 -u 1000 -m -d /home/qbittorrent qbittorrent && \
-    su qbittorrent && \
-    mkdir -p /home/qbittorrent/.config/qBittorrent && \
+RUN mkdir -p /home/qbittorrent/.config/qBittorrent && \
     mkdir -p /home/qbittorrent/.local/share/data/qBittorrent && \
     mkdir -p /home/qbittorrent/Downloads && \
     mkdir -p /home/qbittorrent/Downloads-temp && \
@@ -13,9 +10,7 @@ RUN groupadd -g 1000 qbittorrent && \
     ln -s /home/qbittorrent/.local/share/data/qBittorrent /torrents && \
     ln -s /home/qbittorrent/Downloads /qbit-downloads && \
     ln -s /home/qbittorrent/Downloads-temp /qbit-downloads-temp && \
-    chown -R qbittorrent /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
     chmod 0777 -R /home/qbittorrent /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
-    chmod g+s /home/qbittorrent/Downloads /home/qbittorrent/Downloads-temp && \
     apt-get update -y && \
     apt-get install -y build-essential && \
     apt-get install -y pkg-config && \
@@ -47,12 +42,9 @@ RUN groupadd -g 1000 qbittorrent && \
 ADD qBittorrent.conf /default/qBittorrent.conf
 ADD entrypoint.sh /entrypoint.sh
 
-RUN chown -R 1000:1000 /entrypoint.sh && \
-    chmod -R 0775 /entrypoint.sh
+RUN chmod -R 0777 /entrypoint.sh
 
 VOLUME ["/config", "/torrents", "/qbit-downloads", "qbit-downloads-temp"]
-
-USER 1000:1000
 
 EXPOSE 8080 6881
 

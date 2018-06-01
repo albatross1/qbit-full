@@ -1,37 +1,23 @@
+
+#Clone of stockmind/docker-openvpn-arm
 FROM ubuntu:xenial
-MAINTAINER TheCreatorzOne
 
-RUN useradd -m -d /qbittorrent qbittorrent && \
-    apt-get update -y && \
-    apt-get -y install software-properties-common && \
-    add-apt-repository ppa:qbittorrent-team/qbittorrent-unstable && \
-    apt-get update -y && \
-    apt-get install -y qbittorrent-nox && \
-    apt-get install -y unrar && \
-    chown -R qbittorrent /qbittorrent && \
-    mkdir -p /qbittorrent/.config/qBittorrent && \
-    mkdir -p /qbittorrent/.local/share/data/qBittorrent && \
-    ln -s /qbittorrent/.config/qBittorrent /config && \
-    ln -s /qbittorrent/.local/share/data/qBittorrent /torrents && \
-    mkdir -p /Downloads/temp && \
-    ln -s /Downloads /qbit-downloads && \
-    chown -R qbittorrent /Downloads /Downloads/temp && \
-    chmod -R 2777 /qbittorrent /Downloads /Downloads/temp
+#Clone and Building the image
+docker build -f Dockerfile.arm -t stockmind/docker-openvpn-arm:latest . && \
 
-ADD qBittorrent.conf /default/qBittorrent.conf
-ADD entrypoint.sh /entrypoint.sh
+#Name for the $OVPN_DATA data volume container. It's recommended to use the ovpn-data- prefix to operate seamlessly with the reference systemd service.
+OVPN_DATA="ovpn-data-example" && \
 
-RUN chown -R qbittorrent /entrypoint.sh && \
-    chmod -R 0777 /entrypoint.sh
+#Initialize the $OVPN_DATA container that will hold the configuration files and certificates. The container will prompt for a passphrase to protect the private key used by the newly generated certificate authority.
+docker volume create --name $OVPN_DATA && \
+docker run -v $OVPN_DATA:/etc/openvpn --rm stockmind/docker-openvpn-arm ovpn_genconfig -u udp://VPN.SERVERNAME.COM && \
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it stockmind/docker-openvpn-arm ovpn_initpki && \
 
-VOLUME ["/config", "/torrents", "/qbit-downloads"]
+#Start OpenVPN server process
+docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN stockmind/docker-openvpn-arm && \
 
-EXPOSE 8080 6881
+#Generate a client certificate without a passphrase
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it stockmind/docker-openvpn-arm easyrsa build-client-full CLIENTNAME nopass && \
 
-USER qbittorrent
-
-WORKDIR /qbittorrent
-
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["qbittorrent-nox"]
+#Retrieve the client configuration with embedded certificates
+docker run -v $OVPN_DATA:/etc/openvpn --rm stockmind/docker-openvpn-arm ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn && \

@@ -8,11 +8,19 @@ MAINTAINER binhex
 ADD build/*.conf /etc/supervisor/conf.d/
 
 # add bash scripts to install app
-ADD build/root/*.sh /root/
+ADD root/build/root/*.sh /root/
 
 # add bash script to setup iptables
-ADD run/root/*.sh /root/
+ADD root/run/root/*.sh root/run/root/
 
-RUN chmod +x /root/*.sh RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py
+RUN chmod +x root/run/root/*.sh RUN chmod +x root/run/root/*.sh root/run/home/nobody/*.sh root/run/home/nobody/*.py
+
+VOLUME ["/config", "/data"]
+
+ENTRYPOINT ["/qbitentrypoint1.sh"]
+
+ENTRYPOINT ["/qbitentrypoint2.sh"]
+
+EXPOSE 8080 6881 8118 58846 58946 58946/udp
 
 CMD ["/bin/bash", "/root/init.sh"]
